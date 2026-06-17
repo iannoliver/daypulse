@@ -43,6 +43,7 @@ export function useAuth(): UseAuthReturn {
       password,
       options: {
         data: { name },
+        emailRedirectTo: 'https://daypulse-pied.vercel.app',
       },
     })
     return { error: error?.message ?? null }
