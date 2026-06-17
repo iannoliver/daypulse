@@ -60,8 +60,8 @@ export function Insight({ user }: InsightPageProps) {
   }
 
   function formatGeneratedAt(iso: string) {
-    return new Date(iso).toLocaleDateString('pt-BR', {
-      day: '2-digit', month: 'long', year: 'numeric',
+    return new Date(iso).toLocaleDateString('en-US', {
+      day: 'numeric', month: 'long', year: 'numeric',
       hour: '2-digit', minute: '2-digit',
     })
   }
@@ -79,14 +79,14 @@ export function Insight({ user }: InsightPageProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-white">Insight semanal</h1>
+        <h1 className="text-2xl font-bold text-white">Weekly insight</h1>
         <Badge variant={badgeVariant}>
           {weekCheckins.length >= 7 && (
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="inline mr-1">
               <path d="M2 5l2.5 2.5L8 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           )}
-          {weekCheckins.length}/7 dias
+          {weekCheckins.length}/7 days
         </Badge>
       </div>
 
@@ -96,14 +96,14 @@ export function Insight({ user }: InsightPageProps) {
             <CalendarIllustration />
           </div>
           <div>
-            <p className="text-white font-medium mb-1">Poucos dados esta semana</p>
+            <p className="text-white font-medium mb-1">Not enough data this week</p>
             <p className="text-white/50 text-sm">
-              Faça pelo menos <span className="text-primary font-medium">3 check-ins</span> esta semana para receber seu insight personalizado.
+              Complete at least <span className="text-primary font-medium">3 check-ins</span> this week to receive your personalized insight.
             </p>
           </div>
           <div>
             <p className="text-white/40 text-xs mb-3">
-              {weekCheckins.length} de 7 check-ins registrados
+              {weekCheckins.length} of 7 check-ins logged
             </p>
             <div className="flex justify-center gap-2">
               {Array.from({ length: 7 }).map((_, i) => (
@@ -124,13 +124,13 @@ export function Insight({ user }: InsightPageProps) {
           <button
             onClick={handleGenerate}
             disabled={generatedToday || generating}
-            className={`w-full flex items-center justify-center gap-2 py-4 rounded-xl font-semibold text-base text-white transition-all duration-150 bg-gradient-to-r from-purple-600 to-purple-500 hover:brightness-110 hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100`}
+            className="w-full flex items-center justify-center gap-2 py-4 rounded-xl font-semibold text-base text-white transition-all duration-150 bg-gradient-to-r from-purple-600 to-purple-500 hover:brightness-110 hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100"
           >
             {generating ? (
               <>
                 <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
                 <span>
-                  Analisando sua semana
+                  Analyzing your week
                   <span className="inline-flex ml-0.5">
                     <span className="animate-[bounce_1s_ease-in-out_0s_infinite]">.</span>
                     <span className="animate-[bounce_1s_ease-in-out_0.2s_infinite]">.</span>
@@ -139,11 +139,11 @@ export function Insight({ user }: InsightPageProps) {
                 </span>
               </>
             ) : generatedToday ? (
-              'Insight gerado hoje ✓'
+              'Insight generated today ✓'
             ) : (
               <>
                 <span className="text-lg leading-none">✦</span>
-                Gerar insight da semana
+                Generate weekly insight
               </>
             )}
           </button>
@@ -158,14 +158,14 @@ export function Insight({ user }: InsightPageProps) {
         <Card className="text-center py-8">
           <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-white font-medium">
-            Analisando sua semana
+            Analyzing your week
             <span className="inline-flex ml-0.5">
               <span className="animate-[bounce_1s_ease-in-out_0s_infinite]">.</span>
               <span className="animate-[bounce_1s_ease-in-out_0.2s_infinite]">.</span>
               <span className="animate-[bounce_1s_ease-in-out_0.4s_infinite]">.</span>
             </span>
           </p>
-          <p className="text-white/50 text-sm mt-1">A IA está processando seus dados de bem-estar.</p>
+          <p className="text-white/50 text-sm mt-1">The AI is processing your wellness data.</p>
         </Card>
       )}
 
@@ -192,7 +192,7 @@ export function Insight({ user }: InsightPageProps) {
                   <line x1="8" y1="2" x2="8" y2="6" />
                   <line x1="3" y1="10" x2="21" y2="10" />
                 </svg>
-                Gerado em {formatGeneratedAt(insight.generated_at)}
+                Generated on {formatGeneratedAt(insight.generated_at)}
               </div>
               {!generatedToday && (
                 <Button
@@ -202,7 +202,7 @@ export function Insight({ user }: InsightPageProps) {
                   disabled={generating}
                   className="text-white/30 hover:text-white/60 border border-white/10 text-xs"
                 >
-                  Regenerar
+                  Regenerate
                 </Button>
               )}
             </div>
@@ -216,9 +216,9 @@ export function Insight({ user }: InsightPageProps) {
             <WaveIllustration />
           </div>
           <div>
-            <p className="text-white font-semibold text-lg">Sua semana em palavras</p>
+            <p className="text-white font-semibold text-lg">Your week in words</p>
             <p className="text-white/50 text-sm mt-1">
-              A IA vai analisar seus {weekCheckins.length} check-ins e identificar padrões no seu bem-estar
+              The AI will analyze your {weekCheckins.length} check-ins and identify patterns in your well-being
             </p>
           </div>
         </Card>

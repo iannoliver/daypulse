@@ -9,21 +9,21 @@ import { Toast } from '../components/ui/Toast'
 import { getGreeting, getMoodEmoji, getMoodLabel, getEnergyLabel, formatDate } from '../lib/utils'
 
 const MOOD_OPTIONS = [1, 2, 3, 4, 5] as const
-const MOOD_LABELS = ['Péssimo', 'Ruim', 'Ok', 'Bom', 'Ótimo']
+const MOOD_LABELS = ['Terrible', 'Bad', 'Okay', 'Good', 'Great']
 
 const PHYSICAL_OPTIONS = [
-  { value: 'headache', label: 'Dor de cabeça', icon: '🤕' },
-  { value: 'fatigue', label: 'Cansaço', icon: '😴' },
-  { value: 'nausea', label: 'Náusea', icon: '🤢' },
-  { value: 'tension', label: 'Tensão', icon: '😤' },
-  { value: 'none', label: 'Nenhum', icon: '✅' },
+  { value: 'headache', label: 'Headache', icon: '🤕' },
+  { value: 'fatigue', label: 'Fatigue', icon: '😴' },
+  { value: 'nausea', label: 'Nausea', icon: '🤢' },
+  { value: 'tension', label: 'Tension', icon: '😤' },
+  { value: 'none', label: 'None', icon: '✅' },
 ]
 
 function getTimeSubtitle() {
   const hour = new Date().getHours()
-  if (hour < 12) return 'Como você acordou hoje?'
-  if (hour < 18) return 'Como está sendo sua tarde?'
-  return 'Como foi seu dia?'
+  if (hour < 12) return 'How did you wake up today?'
+  if (hour < 18) return 'How is your afternoon going?'
+  return 'How was your day?'
 }
 
 interface CheckinPageProps {
@@ -31,7 +31,7 @@ interface CheckinPageProps {
 }
 
 export function Checkin({ user }: CheckinPageProps) {
-  const name = (user.user_metadata?.name as string) ?? user.email?.split('@')[0] ?? 'você'
+  const name = (user.user_metadata?.name as string) ?? user.email?.split('@')[0] ?? 'you'
   const { todayCheckin, loading, saveCheckin } = useCheckin(user.id)
 
   const [editing, setEditing] = useState(false)
@@ -71,7 +71,7 @@ export function Checkin({ user }: CheckinPageProps) {
     if (error) {
       setToast({ message: error, type: 'error' })
     } else {
-      setToast({ message: 'Check-in salvo com sucesso!', type: 'success' })
+      setToast({ message: 'Check-in saved successfully!', type: 'success' })
       setEditing(false)
     }
   }
@@ -121,7 +121,7 @@ export function Checkin({ user }: CheckinPageProps) {
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="inline mr-1">
                 <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              Feito
+              Done
             </Badge>
           </div>
 
@@ -129,17 +129,17 @@ export function Checkin({ user }: CheckinPageProps) {
             <div className="bg-bg rounded-xl p-3 text-center">
               <p className="text-xl mb-1">🌙</p>
               <p className="text-lg font-bold text-white">{todayCheckin.sleep_hours}h</p>
-              <p className="text-xs text-white/50 mt-0.5">Sono</p>
+              <p className="text-xs text-white/50 mt-0.5">Sleep</p>
             </div>
             <div className="bg-bg rounded-xl p-3 text-center">
               <p className="text-xl mb-1">⚡</p>
               <p className="text-lg font-bold text-white">{todayCheckin.energy}/5</p>
-              <p className="text-xs text-white/50 mt-0.5">Energia</p>
+              <p className="text-xs text-white/50 mt-0.5">Energy</p>
             </div>
             <div className="bg-bg rounded-xl p-3 text-center">
               <p className="text-xl mb-1">💭</p>
               <p className="text-sm font-bold text-white">{getMoodLabel(todayCheckin.mood)}</p>
-              <p className="text-xs text-white/50 mt-0.5">Humor</p>
+              <p className="text-xs text-white/50 mt-0.5">Mood</p>
             </div>
           </div>
 
@@ -161,7 +161,7 @@ export function Checkin({ user }: CheckinPageProps) {
           )}
 
           <Button variant="ghost" onClick={startEdit} className="w-full border border-white/10">
-            Editar check-in
+            Edit check-in
           </Button>
         </Card>
       )}
@@ -169,13 +169,13 @@ export function Checkin({ user }: CheckinPageProps) {
       {showForm && (
         <Card className="border border-purple-500/20 bg-gradient-to-b from-white/5 to-transparent">
           <h2 className="font-semibold text-white mb-5">
-            {todayCheckin ? 'Editar check-in' : 'Como você está hoje?'}
+            {todayCheckin ? 'Edit check-in' : 'How are you today?'}
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Humor */}
+            {/* Mood */}
             <div>
-              <label className="block text-sm text-white/70 mb-3">Como está seu humor?</label>
+              <label className="block text-sm text-white/70 mb-3">How's your mood?</label>
               <div className="flex justify-between gap-2">
                 {MOOD_OPTIONS.map((m, idx) => (
                   <button
@@ -195,10 +195,10 @@ export function Checkin({ user }: CheckinPageProps) {
               </div>
             </div>
 
-            {/* Energia */}
+            {/* Energy */}
             <div>
               <div className="flex justify-between items-center mb-3">
-                <label className="text-sm text-white/70">Nível de energia</label>
+                <label className="text-sm text-white/70">Energy level</label>
                 <span className="text-lg font-bold text-purple-400">{energy}/5</span>
               </div>
               <Slider
@@ -210,10 +210,10 @@ export function Checkin({ user }: CheckinPageProps) {
               />
             </div>
 
-            {/* Sono */}
+            {/* Sleep */}
             <div>
               <div className="flex justify-between mb-2">
-                <label className="text-sm text-white/70">Horas de sono</label>
+                <label className="text-sm text-white/70">Hours of sleep</label>
                 <span className="text-sm font-medium text-primary">{sleepHours}h</span>
               </div>
               <div className="relative">
@@ -246,9 +246,9 @@ export function Checkin({ user }: CheckinPageProps) {
               </div>
             </div>
 
-            {/* Sintomas físicos */}
+            {/* Physical symptoms */}
             <div>
-              <label className="block text-sm text-white/70 mb-3">Sintomas físicos</label>
+              <label className="block text-sm text-white/70 mb-3">Physical symptoms</label>
               <div className="flex flex-wrap gap-2">
                 {PHYSICAL_OPTIONS.map((opt) => {
                   const selected = physical.includes(opt.value)
@@ -274,13 +274,13 @@ export function Checkin({ user }: CheckinPageProps) {
               </div>
             </div>
 
-            {/* Nota livre */}
+            {/* Free note */}
             <div>
-              <label className="block text-sm text-white/70 mb-2">Nota livre</label>
+              <label className="block text-sm text-white/70 mb-2">Free note</label>
               <textarea
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                placeholder="Conte como foi... (opcional)"
+                placeholder="Tell me how it went... (optional)"
                 rows={3}
                 className="w-full bg-bg border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-purple-500/50 transition-colors resize-none"
               />
@@ -289,21 +289,21 @@ export function Checkin({ user }: CheckinPageProps) {
             <div className="flex gap-3">
               {editing && (
                 <Button type="button" variant="secondary" onClick={() => setEditing(false)} className="flex-1">
-                  Cancelar
+                  Cancel
                 </Button>
               )}
               <button
                 type="submit"
                 disabled={saving}
-                className={`flex-1 flex items-center justify-center gap-2 py-4 rounded-xl font-semibold text-base text-white transition-all duration-150 bg-gradient-to-r from-purple-600 to-purple-500 hover:brightness-110 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100`}
+                className="flex-1 flex items-center justify-center gap-2 py-4 rounded-xl font-semibold text-base text-white transition-all duration-150 bg-gradient-to-r from-purple-600 to-purple-500 hover:brightness-110 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100"
               >
                 {saving ? (
                   <>
                     <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
-                    Salvando...
+                    Saving...
                   </>
                 ) : (
-                  'Salvar check-in'
+                  'Save check-in'
                 )}
               </button>
             </div>
@@ -313,7 +313,7 @@ export function Checkin({ user }: CheckinPageProps) {
 
       {todayCheckin && !editing && (
         <p className="text-center text-xs text-white/30">
-          Registrado em {formatDate(todayCheckin.date)}
+          Logged on {formatDate(todayCheckin.date)}
         </p>
       )}
     </div>

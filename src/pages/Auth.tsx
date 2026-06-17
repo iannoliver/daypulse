@@ -30,7 +30,7 @@ export function Auth() {
       }
     } else {
       if (!name.trim()) {
-        setError('Informe seu nome.')
+        setError('Please enter your name.')
         setLoading(false)
         return
       }
@@ -46,10 +46,10 @@ export function Auth() {
   }
 
   function translateError(msg: string): string {
-    if (msg.includes('Invalid login credentials')) return 'E-mail ou senha incorretos.'
-    if (msg.includes('Email already registered')) return 'Este e-mail já está cadastrado.'
-    if (msg.includes('Password should be at least')) return 'A senha deve ter ao menos 6 caracteres.'
-    if (msg.includes('Unable to validate')) return 'E-mail inválido.'
+    if (msg.includes('Invalid login credentials')) return 'Incorrect email or password.'
+    if (msg.includes('Email already registered')) return 'This email is already registered.'
+    if (msg.includes('Password should be at least')) return 'Password must be at least 6 characters.'
+    if (msg.includes('Unable to validate')) return 'Invalid email address.'
     return msg
   }
 
@@ -61,7 +61,7 @@ export function Auth() {
             <span className="text-3xl text-primary font-bold">●</span>
             <span className="text-3xl font-bold text-white tracking-tight">DayPulse</span>
           </div>
-          <p className="text-white/50 text-sm">Seu diário de bem-estar diário</p>
+          <p className="text-white/50 text-sm">Your daily wellness journal</p>
         </div>
 
         <div className="bg-card rounded-2xl border border-white/5 overflow-hidden">
@@ -74,7 +74,7 @@ export function Auth() {
                   tab === t ? 'text-primary border-b-2 border-primary' : 'text-white/40 hover:text-white/70'
                 }`}
               >
-                {t === 'signin' ? 'Entrar' : 'Criar conta'}
+                {t === 'signin' ? 'Sign In' : 'Create account'}
               </button>
             ))}
           </div>
@@ -82,12 +82,12 @@ export function Auth() {
           <form onSubmit={handleSubmit} className="p-5 space-y-4">
             {tab === 'signup' && (
               <div>
-                <label className="block text-xs text-white/50 mb-1.5">Nome</label>
+                <label className="block text-xs text-white/50 mb-1.5">Name</label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Como você se chama?"
+                  placeholder="What's your name?"
                   autoComplete="name"
                   required
                   className="w-full bg-bg border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-primary/50 transition-colors"
@@ -96,12 +96,12 @@ export function Auth() {
             )}
 
             <div>
-              <label className="block text-xs text-white/50 mb-1.5">E-mail</label>
+              <label className="block text-xs text-white/50 mb-1.5">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="seu@email.com"
+                placeholder="your@email.com"
                 autoComplete="email"
                 required
                 className="w-full bg-bg border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-primary/50 transition-colors"
@@ -109,12 +109,12 @@ export function Auth() {
             </div>
 
             <div>
-              <label className="block text-xs text-white/50 mb-1.5">Senha</label>
+              <label className="block text-xs text-white/50 mb-1.5">Password</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder={tab === 'signup' ? 'Mínimo 6 caracteres' : '••••••••'}
+                placeholder={tab === 'signup' ? 'Minimum 6 characters' : '••••••••'}
                 autoComplete={tab === 'signin' ? 'current-password' : 'new-password'}
                 required
                 className="w-full bg-bg border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-primary/50 transition-colors"
@@ -126,7 +126,7 @@ export function Auth() {
             )}
 
             <Button type="submit" loading={loading} className="w-full" size="lg">
-              {tab === 'signin' ? 'Entrar' : 'Criar conta'}
+              {tab === 'signin' ? 'Sign In' : 'Create account'}
             </Button>
           </form>
         </div>

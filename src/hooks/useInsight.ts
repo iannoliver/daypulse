@@ -39,7 +39,7 @@ export function useInsight(userId: string | undefined): UseInsightReturn {
   }, [userId])
 
   async function generateInsight(): Promise<{ error: string | null }> {
-    if (!userId) return { error: 'Usuário não autenticado' }
+    if (!userId) return { error: 'User not authenticated' }
 
     setGenerating(true)
 
@@ -61,7 +61,7 @@ export function useInsight(userId: string | undefined): UseInsightReturn {
 
       if (weekCheckins.length < 3) {
         setGenerating(false)
-        return { error: 'Faça pelo menos 3 check-ins esta semana para gerar um insight.' }
+        return { error: 'Complete at least 3 check-ins this week to generate an insight.' }
       }
 
       const content = await generateWeeklyInsight(weekCheckins)
@@ -90,7 +90,7 @@ export function useInsight(userId: string | undefined): UseInsightReturn {
       return { error: null }
     } catch (err) {
       setGenerating(false)
-      return { error: err instanceof Error ? err.message : 'Erro desconhecido' }
+      return { error: err instanceof Error ? err.message : 'Unknown error' }
     }
   }
 

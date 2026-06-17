@@ -1,11 +1,11 @@
 export function formatDate(dateStr: string): string {
   const date = new Date(dateStr + 'T00:00:00')
-  return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })
+  return date.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })
 }
 
 export function formatDateShort(dateStr: string): string {
   const date = new Date(dateStr + 'T00:00:00')
-  return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 }
 
 export function getMoodEmoji(mood: number): string {
@@ -27,21 +27,21 @@ export function getMoodColor(mood: number): string {
 
 export function getMoodLabel(mood: number): string {
   const labels: Record<number, string> = {
-    1: 'Muito mal',
-    2: 'Mal',
-    3: 'Neutro',
-    4: 'Bem',
-    5: 'Ótimo',
+    1: 'Very bad',
+    2: 'Bad',
+    3: 'Neutral',
+    4: 'Good',
+    5: 'Great',
   }
-  return labels[mood] ?? 'Neutro'
+  return labels[mood] ?? 'Neutral'
 }
 
 export function getEnergyLabel(energy: number): string {
-  if (energy <= 1) return 'Sem energia'
-  if (energy === 2) return 'Pouca energia'
-  if (energy === 3) return 'Energia moderada'
-  if (energy === 4) return 'Bastante energia'
-  return 'Cheio de energia'
+  if (energy <= 1) return 'No energy'
+  if (energy === 2) return 'Low energy'
+  if (energy === 3) return 'Moderate energy'
+  if (energy === 4) return 'High energy'
+  return 'Full of energy'
 }
 
 export function getTodayString(): string {
@@ -66,9 +66,9 @@ export function getWeekStart(): string {
 
 export function getGreeting(): string {
   const hour = new Date().getHours()
-  if (hour < 12) return 'Bom dia'
-  if (hour < 18) return 'Boa tarde'
-  return 'Boa noite'
+  if (hour < 12) return 'Good morning'
+  if (hour < 18) return 'Good afternoon'
+  return 'Good evening'
 }
 
 export function getDaysAgoString(days: number): string {

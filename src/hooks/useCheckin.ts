@@ -45,7 +45,7 @@ export function useCheckin(userId: string | undefined): UseCheckinReturn {
   }, [userId])
 
   async function saveCheckin(data: SaveCheckinData): Promise<{ error: string | null }> {
-    if (!userId) return { error: 'Usuário não autenticado' }
+    if (!userId) return { error: 'User not authenticated' }
 
     const today = getTodayString()
     const payload = { ...data, user_id: userId, date: today }

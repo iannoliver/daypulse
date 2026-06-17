@@ -10,15 +10,15 @@ interface HistoryProps {
   user: User
 }
 
-const WEEKDAYS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
-const MONTHS = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 const PHYSICAL_LABELS: Record<string, string> = {
-  headache: 'Dor de cabeça',
-  fatigue: 'Cansaço',
-  nausea: 'Náusea',
-  tension: 'Tensão',
-  none: 'Nenhum',
+  headache: 'Headache',
+  fatigue: 'Fatigue',
+  nausea: 'Nausea',
+  tension: 'Tension',
+  none: 'None',
 }
 
 export function History({ user }: HistoryProps) {
@@ -67,7 +67,7 @@ export function History({ user }: HistoryProps) {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-white">Histórico</h1>
+      <h1 className="text-2xl font-bold text-white">History</h1>
 
       <Card>
         <div className="flex items-center justify-between mb-4">
@@ -129,7 +129,7 @@ export function History({ user }: HistoryProps) {
         </div>
 
         <div className="flex items-center gap-4 mt-4 pt-4 border-t border-white/5">
-          {[{ color: '#f87171', label: 'Ruim' }, { color: '#facc15', label: 'Neutro' }, { color: '#4ade80', label: 'Bom' }].map(({ color, label }) => (
+          {[{ color: '#f87171', label: 'Bad' }, { color: '#facc15', label: 'Neutral' }, { color: '#4ade80', label: 'Good' }].map(({ color, label }) => (
             <div key={label} className="flex items-center gap-1.5 text-xs text-white/50">
               <span className="w-3 h-3 rounded-full" style={{ backgroundColor: color + '66', border: `1px solid ${color}` }} />
               {label}
@@ -148,23 +148,23 @@ export function History({ user }: HistoryProps) {
           <div className="grid grid-cols-3 gap-3">
             <div className="bg-bg rounded-xl p-3 text-center">
               <p className="text-2xl">{getMoodEmoji(selected.mood)}</p>
-              <p className="text-xs text-white/50 mt-1">Humor</p>
+              <p className="text-xs text-white/50 mt-1">Mood</p>
               <p className="text-xs font-medium text-white">{getMoodLabel(selected.mood)}</p>
             </div>
             <div className="bg-bg rounded-xl p-3 text-center">
               <p className="text-xl font-bold text-primary">{selected.energy}/5</p>
-              <p className="text-xs text-white/50 mt-1">Energia</p>
+              <p className="text-xs text-white/50 mt-1">Energy</p>
               <p className="text-xs font-medium text-white">{getEnergyLabel(selected.energy)}</p>
             </div>
             <div className="bg-bg rounded-xl p-3 text-center">
               <p className="text-xl font-bold text-success">{selected.sleep_hours}h</p>
-              <p className="text-xs text-white/50 mt-1">Sono</p>
+              <p className="text-xs text-white/50 mt-1">Sleep</p>
             </div>
           </div>
 
           {selected.physical.length > 0 && !selected.physical.includes('none') && (
             <div>
-              <p className="text-xs text-white/50 mb-2">Sintomas</p>
+              <p className="text-xs text-white/50 mb-2">Symptoms</p>
               <div className="flex flex-wrap gap-2">
                 {selected.physical.map((s) => (
                   <Badge key={s} variant="warning">{PHYSICAL_LABELS[s] ?? s}</Badge>
@@ -175,7 +175,7 @@ export function History({ user }: HistoryProps) {
 
           {selected.note && (
             <div>
-              <p className="text-xs text-white/50 mb-1">Nota</p>
+              <p className="text-xs text-white/50 mb-1">Note</p>
               <p className="text-sm text-white/80 italic">"{selected.note}"</p>
             </div>
           )}
